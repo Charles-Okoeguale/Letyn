@@ -1,19 +1,11 @@
 import { StyleSheet, Text, SafeAreaView, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { calculateEm, calculateFontsize, calculatePercentageDimension, screenWidth } from '../../helpers';
 import Form from '../../components/form';
-import { useState } from 'react';
+import { useForm } from '../../Context/FormContext';
 
 const EstateRegister = ({ navigation }) => {
 
-  const [estateRegister, setEstateRegister] = useState({
-    estateName: '',
-    country: '',
-    state: '',
-    city: '',
-    phoneNumber: '',
-    password: '',
-    otp: ''
-  })
+  const { estateRegister, setEstateRegister } = useForm();
 
   const handleButtonClick = () => {
     const { estateName, country, state, city } = estateRegister;
@@ -51,13 +43,13 @@ const EstateRegister = ({ navigation }) => {
           onSubmit={handleButtonClick}
           buttonText={'Continue'}
           HandlePress={() => navigation.navigate('EstateLogin')}
-          data={estateRegister}
-          setData={setEstateRegister}
+          // data={estateRegister}
+          // setData={setEstateRegister}
         />
         </KeyboardAvoidingView>
       </SafeAreaView>
     );
-  };
+};
   
   const styles = StyleSheet.create({
     text: {

@@ -8,9 +8,11 @@ import { Text } from 'react-native';
 import EstateRegister from './screens/Authentication/EstateRegister';
 import EstateLogin from './screens/Authentication/EstateLogin';
 import VerifyPhoneNumber from './screens/Authentication/verifyPhonenumber';
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
+import { FormProvider } from './Context/FormContext';
 
 const Stack = createStackNavigator();
+export const appContext = createContext()
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -20,11 +22,11 @@ export default function App() {
 
   if (!fontsLoaded && !fontError) {
       return null;
-  }
-  const appContext = createContext()
+  }  
+
   return (
+    <FormProvider>
       <PaperProvider>
-        <appContext.Provider value={{}}>
         <NavigationContainer>
         <Stack.Navigator initialRouteName="Welcome" screenOptions={{title: false, headerTransparent: true,  headerTintColor: '#FFFFFF',}}>
           <Stack.Screen name="Welcome" component={WelcomeScreen}/>
@@ -52,8 +54,8 @@ export default function App() {
           />
         </Stack.Navigator>
         </NavigationContainer>
-        </appContext.Provider>
       </PaperProvider>
+    </FormProvider>
   );
 } 
 

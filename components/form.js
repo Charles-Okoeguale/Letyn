@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TouchableWithoutF
 import Textfield from './textfield';
 import CustomButton from './button';
 import { calculatePercentageDimension } from '../helpers';
+import { useForm } from '../Context/FormContext';
 
 const marginTop1 = calculatePercentageDimension(150, 932)
 const TextMarginBottom = calculatePercentageDimension(40, 932)
@@ -14,7 +15,6 @@ const { width: screenWidth } = Dimensions.get('window');
 const Form = ({ 
     data,
     setData,
-    navigation, 
     estateName, 
     country, 
     state, 
@@ -30,6 +30,7 @@ const Form = ({
 
     const [otp, setOtp] = useState(Array(4).fill(''));
     const inputRefs = useRef([]);
+    const { estateRegister, setEstateRegister } = useForm();
 
     // const handleOnChange = (index, value) => {
     //     const newOtp = [...otp];
