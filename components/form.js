@@ -11,51 +11,43 @@ const marginTop3 = calculatePercentageDimension(100, 932)
 const marginTop4 = calculatePercentageDimension(10, 932)
 const { width: screenWidth } = Dimensions.get('window');
 
-const Form = ({ navigation, estateName, country, state, city, password, type, text, phoneNumber, code, buttonText, onSubmit, HandlePress }) => {
-    const [estatedetails, setEstatedetails] = useState({
-        estateName: '',
-        country: '',
-        state: '',
-        city: '',
-        password: ''
-    });
+const Form = ({ 
+    data,
+    setData,
+    navigation, 
+    estateName, 
+    country, 
+    state, 
+    city, 
+    password, 
+    type, 
+    text, 
+    phoneNumber, 
+    code, 
+    buttonText, 
+    onSubmit, 
+    HandlePress }) => {
 
     const [otp, setOtp] = useState(Array(4).fill(''));
     const inputRefs = useRef([]);
 
-    const handleOnChange = (index, value) => {
-        const newOtp = [...otp];
-        newOtp[index] = value;
-        setOtp(newOtp);
-        if (value && index < numInputs - 1) {
-          inputRefs.current[index + 1].focus();
-        }
-    };
-
-    const handleEstateNameChange = (value) => {
-        setEstatedetails({ ...estatedetails, estateName: value });
-    };
-
-    const handleCountryChange = (value) => {
-        setEstatedetails({ ...estatedetails, country: value });
-    };
-
-    const handleStateChange = (value) => {
-        setEstatedetails({ ...estatedetails, state: value });
-    };
-
-    const handleCityChange = (value) => {
-        setEstatedetails({ ...estatedetails, city: value });
-    };
-
-    const handlePasswordChange = (value) => {
-        setEstatedetails({ ...estatedetails, password: value });
-    };
+    // const handleOnChange = (index, value) => {
+    //     const newOtp = [...otp];
+    //     newOtp[index] = value;
+    //     setOtp(newOtp);
+    //     if (value && index < numInputs - 1) {
+    //       inputRefs.current[index + 1].focus();
+    //     }
+    // };
 
     return (
         <View style={styles.form}>
             {estateName && (
                 <Textfield
+                data={data}
+                setData={setData}
+                value={data.estateName}
+                type={'estateName'}
                 containerStyle={styles.containerStyle}
                 placeholder={'Enter estate name'}
                 textColor={'#FFFFFF'}
@@ -63,23 +55,29 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                 inputStyle={styles.inputStyle}
                 inputContainerStyle={styles.inputContainerStyle}
                 secureTextEntry={false}
-                onChangeText={handleEstateNameChange}
             />
             )}
             {country && (
-                 <Textfield
-                 containerStyle={styles.containerStyle}
-                 placeholder={'Enter country'}
-                 textColor={'#FFFFFF'}
-                 placeholderTextColor={'#FFFFFF'}
-                 inputStyle={styles.inputStyle}
-                 inputContainerStyle={styles.inputContainerStyle}
-                 secureTextEntry={false}
-                 onChangeText={handleCountryChange}
+                <Textfield
+                data={data}
+                setData={setData}
+                value={data.country}
+                type={'country'}
+                containerStyle={styles.containerStyle}
+                placeholder={'Enter country'}
+                textColor={'#FFFFFF'}
+                placeholderTextColor={'#FFFFFF'}
+                inputStyle={styles.inputStyle}
+                inputContainerStyle={styles.inputContainerStyle}
+                secureTextEntry={false}
              />
             )}
             {state && (
                 <Textfield
+                data={data}
+                setData={setData}
+                type={'state'}
+                value={data.state}
                 containerStyle={styles.containerStyle}
                 placeholder={'Enter state'}
                 textColor={'#FFFFFF'}
@@ -87,11 +85,14 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                 inputStyle={styles.inputStyle}
                 inputContainerStyle={styles.inputContainerStyle}
                 secureTextEntry={false}
-                onChangeText={handleStateChange}
             />
             )}
             {city && (
                 <Textfield
+                value={data.city}
+                data={data}
+                setData={setData}
+                type={'city'}
                 containerStyle={styles.containerStyle}
                 placeholder={'Enter city/town'}
                 textColor={'#FFFFFF'}
@@ -99,11 +100,14 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                 inputStyle={styles.inputStyle}
                 inputContainerStyle={styles.inputContainerStyle}
                 secureTextEntry={false}
-                onChangeText={handleCityChange}
             />
             )}
             {password && (
                  <Textfield
+                 data={data}
+                 setData={setData}
+                 type={'password'}
+                 value={data.password}
                  containerStyle={styles.containerStyle}
                  placeholder={'Enter password'}
                  textColor={'#FFFFFF'}
@@ -111,7 +115,6 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                  inputStyle={styles.inputStyle}
                  inputContainerStyle={styles.inputContainerStyle}
                  secureTextEntry={true}
-                 onChangeText={handlePasswordChange}
                  rightIcon={'eye'}
                  iconColor={'#FFFFFF'}
                  iconSize={20}
@@ -122,13 +125,16 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                 <View style={styles.otp}>
                     {otp.map((digit, index) => (
                            <Textfield
+                           data={data}
+                           setData={setData}
+                           type={'otp'}
+                           value={data.otp}
                            containerStyle={styles.input}
                            textColor={'#FFFFFF'}
                            placeholderTextColor={'#FFFFFF'}
                            inputStyle={styles.inputStyle}
                            inputContainerStyle={styles.inputContainerStyle}
                            secureTextEntry={false}
-                           onChangeText={handleCityChange}
                        />
                     ))}
                 </View>
@@ -139,6 +145,10 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
             )}
             {phoneNumber && (
                 <Textfield
+                data={data}
+                setData={setData}
+                type={'phoneNumber'}
+                value={data.phoneNumber}
                 containerStyle={styles.containerStyle}
                 placeholder={'Enter phone number'}
                 textColor={'#FFFFFF'}
@@ -146,7 +156,6 @@ const Form = ({ navigation, estateName, country, state, city, password, type, te
                 inputStyle={styles.inputStyle}
                 inputContainerStyle={styles.inputContainerStyle}
                 secureTextEntry={false}
-                onChangeText={handleCityChange}
             />
             )}
             <CustomButton

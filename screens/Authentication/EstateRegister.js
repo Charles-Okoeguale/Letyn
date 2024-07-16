@@ -1,11 +1,40 @@
 import { StyleSheet, Text, SafeAreaView, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { calculateEm, calculateFontsize, calculatePercentageDimension, screenWidth } from '../../helpers';
 import Form from '../../components/form';
+import { useState } from 'react';
 
 const EstateRegister = ({ navigation }) => {
+
+  const [estateRegister, setEstateRegister] = useState({
+    estateName: '',
+    country: '',
+    state: '',
+    city: '',
+    phoneNumber: '',
+    password: '',
+    otp: ''
+  })
+
   const handleButtonClick = () => {
+    const { estateName, country, state, city } = estateRegister;
+    if (!estateName.trim()) {
+        alert('Please enter the estate name');
+        return;
+    }
+    if (!country.trim()) {
+        alert('Please enter the country');
+        return;
+    }
+    if (!state.trim()) {
+        alert('Please enter the state');
+        return;
+    }
+    if (!city.trim()) {
+        alert('Please enter the city');
+        return;
+    }
     navigation.navigate('VerifyPhoneNumber');
-  };
+};
  
     return (
       <SafeAreaView style={{backgroundColor: '#000000', flex: 1}}>
@@ -22,6 +51,8 @@ const EstateRegister = ({ navigation }) => {
           onSubmit={handleButtonClick}
           buttonText={'Continue'}
           HandlePress={() => navigation.navigate('EstateLogin')}
+          data={estateRegister}
+          setData={setEstateRegister}
         />
         </KeyboardAvoidingView>
       </SafeAreaView>

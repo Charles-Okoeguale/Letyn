@@ -1,6 +1,5 @@
 import { Input} from '@rneui/themed';
 import { FontAwesome } from '@expo/vector-icons'; 
-import { useState } from 'react';
 
 const Textfield = (
     {
@@ -15,14 +14,14 @@ const Textfield = (
         rightIcon,
         iconColor,
         iconSize,
-        onChangeText
+        type,
+        value,
+        data,
+        setData
     }) => {
 
-        const [value, setValue] = useState('');
-
-        const handleTextChange = (text) => {
-            setValue(text);
-            onChangeText(text); 
+        const handleChange = (field, text) => {
+            setData({ ...data, [field]: text });
         };
 
     return (
@@ -36,7 +35,7 @@ const Textfield = (
                 inputStyle={inputStyle}
                 inputContainerStyle={inputContainerStyle}
                 secureTextEntry={secureTextEntry}
-                onChangeText={handleTextChange}
+                onChangeText={(text) => handleChange(type, text)}
                 rightIcon={<FontAwesome name={rightIcon} style={{color: iconColor, fontSize: iconSize }} />}
                 rightIconContainerStyle={rightIconContainerStyle} 
             />
